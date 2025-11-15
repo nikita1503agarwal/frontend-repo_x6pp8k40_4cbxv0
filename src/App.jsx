@@ -1,27 +1,31 @@
 import { useState } from 'react'
+import Layout from './components/Layout'
+import { Dashboard, ServiceStudio, ClientHub, PromptLab, CreativeStudio, AuditLab, PersonaForge, SubscriptionPlanner, Tasks } from './components/Sections'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [route, setRoute] = useState('dashboard')
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <Layout current={route} onNavigate={setRoute}>
+      {route === 'dashboard' && <Dashboard />}
+      {route === 'service' && <ServiceStudio />}
+      {route === 'clients' && <ClientHub />}
+      {route === 'lab' && <PromptLab />}
+      {route === 'creative' && <CreativeStudio />}
+      {route === 'audit' && <AuditLab />}
+      {route === 'persona' && <PersonaForge />}
+      {route === 'subscription' && <SubscriptionPlanner />}
+      {route === 'tasks' && <Tasks />}
+      {route === 'settings' && (
+        <div className="space-y-4">
+          <div className="text-lg font-semibold">Settings & Resources</div>
+          <div className="text-sm text-slate-400">Set your API base URL and explore helpful resources.</div>
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="text-xs text-slate-400 mb-2">Backend URL in use</div>
+            <div className="text-sm">{import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'}</div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </Layout>
   )
 }
 
